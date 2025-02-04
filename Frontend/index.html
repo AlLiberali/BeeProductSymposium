@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>فرم مقالات سمپوزیوم</title>
+	<link rel="stylesheet" href="NewStyles.css" />
+	<script src="NewScript.js"></script>
+</head>
+
+<body onload="init()">
+	<img id="loading" src="loading.gif" style="filter: none; height: 128px; width: 128px;" />
+	<p id="warning" style="display: none;">به علت مشکل فنی ارسال مقاله در حال حاضر ممکن نیست. لطفا بعدا مجددا تلاش کنید.</p>
+	<form id="form">
+		<p>لطفا اطلاعات به فارسی وارد شوند. همچنین اسامی نویسندگان و کلمات کلیدی به تفکیک وارد شوند.</p>
+		<label for="title">عنوان مقاله</label>
+		<input type="text" id="title" required
+			placeholder="بررسی تغییرات انرژی آزاد گیبس بین شریان و ورید و تأثیر آن بر میدان مغناطیسی زمین"><br />
+		<table>
+			<thead>
+				<tr>
+					<th style="width: fit-content;">
+						<button type="button" id="addAuthor" onclick="addAuthorListener()"><img
+								style="height: 16px; width: 16px" src="AddButton.png" /></button>
+						<button type="button" id="removeAuthor" onclick="removeAuthorListener()"><img
+								style="height: 16px; width: 16px" src="RemoveButton.png" /></button>
+					</th>
+					<th style="width: 83%;">اسامی نویسندگان</th>
+					<th style="width: fit-content">نویسنده مسئول</th>
+				</tr>
+			</thead>
+			<tbody id="authorSet">
+				<tr class="authorCombo">
+					<td>&#x6F1</td>
+					<td>
+						<input type="text" class="name" required placeholder="نادر جعفری" style="width: 20%">
+						<input type="text" class="affiliation" required
+							placeholder="دانشجوی کارشناسی بوزون شناسی تکوینی دانشگاه محدود واحد بغداد"
+							style="width: 75%;">
+					</td>
+					<td>
+						<input type="radio" name="respondant" value="1" />
+					</td>
+				</tr>
+			</tbody>
+		</table><br />
+		<label for="email">ایمیل نویسنده مسئول</label>
+		<input type="email" id="email" placeholder="person@university.ac.tld" dir="ltr"><br>
+		<label for="telephone">تلفن نویسنده مسئول</label>
+		<input type="tel" id="telephone" required placeholder="09012345678" dir="ltr"><br>
+		<label for="abstract">چکیده</label>
+		<textarea id="abstract" rows="7" required></textarea><br>
+		<div>
+			<label>کلمات کلیدی</label>
+			<button type="button" id="addKeyword" onclick="addKeywordListener()"><img style="height: 16px; width: 16px"
+					src="AddButton.png" /></button>
+			<button type="button" id="removeKeyword" onclick="removeKeywordListener()"><img
+					style="height: 16px; width: 16px" src="RemoveButton.png" /></button>
+		</div>
+		<fieldset id="keywordSet">
+			<input id="keywordInit" type="text" class="keyword" required placeholder="شریان">
+		</fieldset>
+		<p id="timer"></p>
+		<button type="button" id="sub" onclick="send()">ارسال</button>
+	</form>
+</body>
+
+</html>
