@@ -10,6 +10,7 @@ public static class QuestExtensions {
 	public static readonly string Home = "/home/nader/workspace/Symposium/Environment";
 #endif
 	public static readonly TextStyle BaseStyle = TextStyle.Default.DirectionFromRightToLeft().FontFamily("B Nazanin");
+	public static readonly TextStyle CertStyle = TextStyle.Default.DirectionFromRightToLeft().FontFamily("IranNastaliq");
 	public static class Images {
 		public static readonly Image SBULogo = Image.FromFile($"{Home}/Images/sbu.png");
 		public static readonly Image FrontCover = Image.FromFile($"{Home}/Images/FrontCover.png");
@@ -481,10 +482,77 @@ public static class QuestExtensions {
 			col.Item().Text(name).AlignCenter().Style(BaseStyle.Bold());
 		});
 	}
+
+	public static void CertificatePage(this PageDescriptor page, Article article, int author) {
+		page.Size(PageSizes.A4.Landscape());
+		page.ContentFromRightToLeft();
+		page.Margin(2, Unit.Centimetre);
+		page.Header().Height(3.5f, Unit.Centimetre).Table(t => {
+			t.ColumnsDefinition(cd => {
+				cd.ConstantColumn(3.5f, Unit.Centimetre);
+				cd.RelativeColumn();
+				cd.ConstantColumn(3.5f, Unit.Centimetre);
+			});
+			t.Cell().Row(1).Column(1).Image(Images.SBUVP).FitArea();
+			t.Cell().Row(1).Column(3).Image(Images.HBRCLogo).FitArea();
+			t.Cell().Row(1).Column(2)
+			.AlignMiddle()
+			.AlignCenter()
+			.Text(t => {
+				t.AlignCenter();
+				t.DefaultTextStyle(CertStyle);
+				t.EmptyLine().FontSize(2);
+				t.Line("گواهی ارائه مقاله در اولین سمپوزیوم فرآورده\u200Cهای غذائی و داروئی زنبور عسل").FontSize(24).Bold();
+			});
+		});
+		page.Content()
+			.AlignCenter()
+			.PaddingHorizontal(3, Unit.Centimetre)
+			.Text(t => {
+				t.AlignCenter();
+				t.DefaultTextStyle(CertStyle);
+				t.Line($"بدینوسیله گواهی می\u200Cشود مقاله با عنوان").FontSize(18);
+				t.Line(article.Title).FontSize(26);
+				t.Span("توسط نویسنده محترم ").FontSize(18);
+				t.Line(article.Authors[author]).FontSize(26);
+				t.Line("در اولین سمپوزیوم فرآورده\u200Cهای غذائی و داروئی زنبور عسل دانشگاه شهید بهشتی با مجوز ISC" +
+					"، کد اختصاصی \u06F7\u06F5\u06F7\u06F8\u06F3-\u06F0\u06F3\u06F2\u06F4\u06F0" +
+					"در تاریخ \u06F1\u06F7 بهمن \u06F1\u06F4\u06F0\u06F3" +
+					"به تائید کمیته علمی سمپوزیوم رسیده و به صورت پوستر" +
+					" ارائه شده است.").FontSize(18);
+			});
+		page.Footer()
+			.Height(3, Unit.Centimetre)
+			.Table(t => {
+				t.ColumnsDefinition(cd => {
+					cd.RelativeColumn();
+					cd.RelativeColumn();
+				});
+				t.Cell()
+					.AlignMiddle()
+					.AlignCenter()
+					.Text("دبیر اجرائی سمپوزیوم و رئیس مرکز پژوهشی فرآورده\u200Cهای زنبور عسل\nاحمدرضا محرابیان")
+					.Style(CertStyle)
+					.FontSize(20);
+				t.Cell()
+					.AlignMiddle()
+					.AlignCenter()
+					.Text("دبیر علمی سمپوزیوم و رئیس انجمن تغذیه ایران\nجلال\u200Cالدین میرزا رزاز")
+					.Style(CertStyle)
+					.FontSize(20);
+			});
+	}
 	public static void ArticlePage(this PageDescriptor page, Article article, string index) {
 		page.Size(PageSizes.A4);
 		page.ContentFromRightToLeft();
 		page.Margin(2, Unit.Millimetre);
+		page.Foreground()
+			.AlignBottom()
+			.AlignLeft()
+			.Text($"{article.ArticleID}")
+			.FontFamily("Times New Roman")
+			.FontSize(8)
+			.FontColor(Colors.Grey.Lighten1);
 		page
 			.StandardHeader()
 			.StandardFooter($"{index}")

@@ -22,6 +22,7 @@ app.UseCors(p => {
 QuestPDF.Settings.License = LicenseType.Community;
 FontManager.RegisterFont(File.OpenRead($"{Home}/Fonts/BNazanin.ttf"));
 FontManager.RegisterFont(File.OpenRead($"{Home}/Fonts/KingFahdBasmalah.otf"));
+FontManager.RegisterFont(File.OpenRead($"{Home}/Fonts/IranNastaliq.ttf"));
 
 app.MapGet("/isAlive", (IConfiguration config) => {
 	if ((config["dev"]?.Length ?? 0) != 0)
@@ -32,6 +33,16 @@ app.MapGet("/isAlive", (IConfiguration config) => {
 });
 app.MapGet("json", (Context db) => {
 	return Results.Json(db.Articles);
+});
+app.MapGet("/certificate", (Context db) => {
+	var doc = Document.Create(c => {
+		foreach (var article in db.Articles)
+			if (article.State == State.Accepted)
+				for (int i = 0; i < article.Authors.Length; i++)
+					if (article.Authors[i] != "احمد رضا محرابیان")
+						c.Page(p => p.CertificatePage(article, i));
+	});
+	return Results.File(doc.GeneratePdf(), "application/pdf", "Certificates.pdf");
 });
 app.MapPost("/new", async (Article article, Context db) => {
 	db.Add(article);

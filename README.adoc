@@ -1,0 +1,25 @@
+= Bee products symposium booklet
+
+On 5 Feb 2025 my prof held a symposium on bee products, whatever that could be, in our university. Apparently it's important for such events to have some sort of booklet or log book of all the articles presented within so that their authors can, idk, do some sort of academic m*st*rb*tion ritual to it.
+
+Not to worry though as people with actual skills, of which I consider myself to be a very novice one at that, exist and carry the actual operational tasks of such worthless goals just for the kick of solving a problem; Which is exactly what I did.
+
+To do this I asked Microsoft Copilot to write the HTML and CSS bit of the frontend, which it did brilliantly in some aspects and terribly in others. I then tweaked the nonsensical bits to make some sort of sense and wrote vanilla js to make it do requests to the fun parts.
+
+The fun parts first were split in two. A php bit consisting of `file_get_contents`, `file_put_contents` and `php://input` that just took whatever the frontend was sending and stored it as json on disk, running on ParsPack's free tier hosting which is just a reselling of BitCommand's offering in Iran. I then manually downloaded the jsons and used a PowerShell script to edit and append all the jsons into one. I then had the precursor to the code within Backend/QuestExtensions.cs as a console program that generated the actual booklet out of the big json.
+
+The grand total of 280kb worth of json was apparently too much to handle for ParsPack's free tier and the json situation was also getting out of hand; I had to do something, for my own sake at least.
+
+Having failed to find better free hosting service that I could use without US export controls f***ing me over I decided to self host the fun parts and let Github Pages do the frontend. Self hosting on my own machine also meant that I could use whatever tech stack I liked, however I liked. Being a big fan of C# and also already having the generation bit figured out using QuestPDF (Great library btw), I went for ASP.
+
+Minimal APIs are lovely. I thoroughly enjoyed doing basic CRUD using EF Core. And of course I couldn't be asked to set up a DB running so I just used SQLite. Wonderful software.
+
+I also tweaked the js so I can edit entries using the frontend rather than having a PowerShell script. I just called some functions in Chrome dev console et voila. Doing WinForms in PowerShell is legit though.
+
+As for the self hosting, I first had requests directly to my 2011 Sony VAIO VPCSE1C9E laptop running Ubuntu 24.04. My friend/enemy thought wouldn't it be funny to thrash my garbage internet connection so he DoS'd my dyndns'd domain. It was mildly annoying but I quickly whipped up ngrok and changed my dyndns domain. The US however, once again, striked back and ngrok stopped working with Iranian IPs, and thus I once again switched, to https://nport.link[NPort]
+
+It's now 4 Feb as I'm writing this. This was quite a fun little project trying to improvise left and right since mid summer but I managed to pull the result off almost flawlessly. I do miss free php hostings of the olden days but I'd like to thank current free service offerings I used doing this. And also special thanks to the FOSS projects helping with the actual code.
+
+The moral of the story however for me is that I'm never gonna touch Office Word nor TeX varieties if I can help it. QuestPDF and C# is the perfect word processing solution.
+
+Furthermore; On the day of the event I took my dev Surface tablet with me and good thing I did. I had 146 certificates ready for those attending in half an hour. I was very pleased with myself.
