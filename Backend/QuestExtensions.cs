@@ -24,6 +24,7 @@ public static class QuestExtensions {
 		public static readonly Image PhlomisLogo = Image.FromFile($"{Home}/Images/Phlomis.png");
 		public static readonly Image PhloPharmaLogo = Image.FromFile($"{Home}/Images/PhlomisPharma.png");
 		public static readonly Image ConferenceLogo = Image.FromFile($"{Home}/Images/ConferenceLogo.png");
+		public static readonly Image Golbarg = Image.FromFile($"{Home}/Images/Golbarg.png");
 		public static readonly Image[] Logos = Directory.EnumerateFiles($"{Home}/Images/Logo").AsParallel().Select(Image.FromFile).ToArray();
 	}
 	public static class Texts {
@@ -100,6 +101,10 @@ public static class QuestExtensions {
 		});
 		container.Page(p => {
 			p.Size(PageSizes.A4);
+			p.Content().Width(595).Height(842).Image(Images.Golbarg).WithCompressionQuality(ImageCompressionQuality.Best);
+		});
+		container.Page(p => {
+			p.Size(PageSizes.A4);
 			p.ContentFromRightToLeft();
 			p.Margin(2, Unit.Millimetre);
 			p.StandardHeader()
@@ -173,16 +178,23 @@ public static class QuestExtensions {
 		});
 		container.Page(p => {
 			CommitteePage(p, Texts.ExecutiveCommittee, "اعضاء کمیته اجرائی");
+			p.Foreground()
+				.AlignBottom()
+				.AlignLeft()
+				.Text($"Powered by Open Source Software; QuestPDF .NET\nhttps://github.com/AlLiberali")
+				.FontFamily("Times New Roman")
+				.FontSize(8)
+				.FontColor(Colors.Grey.Lighten1);
 		});
 		container.Page(p => {
 			p.Size(PageSizes.A4);
 			p.ContentFromRightToLeft();
 			p.Margin(2, Unit.Millimetre);
 			StandardHeader(p);
-//			StandardFooter(p, "برنامۀ زمانی سمپوزیوم");
+			//			StandardFooter(p, "برنامۀ زمانی سمپوزیوم");
 			p.Content()
 			.PaddingHorizontal(0.7f, Unit.Centimetre)
-//			.PaddingTop(0.5f, Unit.Centimetre)
+			//			.PaddingTop(0.5f, Unit.Centimetre)
 			.Table(tbl => {
 				tbl.ColumnsDefinition(cd => {
 					cd.RelativeColumn(0.8f);
@@ -322,15 +334,15 @@ public static class QuestExtensions {
 				Texts.Hamidi
 			);
 		});
+		*/
 		container.Page(p => {
 			MessagePage(p,
 				"پیام دبیر علمی سمپوزیوم",
-				"بسم الله الرحمن الرحیم",
-				"دکتر جلال\u200Cالدین میرزای رزاز",
+				"بنام خدا",
+				"دکتر جلال\u200Cالدین میرزای رزاز\nدبیر علمی سمپوزیوم، دانشیار دانشگاه علوم پزشکی شهید بهشتی و رئیس انجمن تغذیه ایران",
 				Texts.Razzaz
 			);
 		});
-		*/
 		container.Page(p => {
 			MessagePage(p,
 				"پیام دبیر اجرائی سمپوزیوم",
